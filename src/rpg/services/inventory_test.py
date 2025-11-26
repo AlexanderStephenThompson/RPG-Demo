@@ -1,5 +1,5 @@
-from rpg.entities.item import Item
 from rpg.entities.character import Character
+from rpg.entities.item import Item
 from rpg.services.inventory import InventoryService
 
 

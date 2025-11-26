@@ -22,6 +22,8 @@ def test_critical_hit_doubles_damage_with_rng():
     attacker = Character("Critter", max_hp=20, attack=8)
     defender = Character("Target", max_hp=20, defense=1)
     random_provider = _FixedRng(0.1)
-    damage = resolve_attack(attacker, defender, random_provider=random_provider, crit_chance=0.5)
+    damage = resolve_attack(
+        attacker, defender, random_provider=random_provider, crit_chance=0.5
+    )
     assert damage == (8 - 1) * 2
     assert defender.hp == 20 - damage
