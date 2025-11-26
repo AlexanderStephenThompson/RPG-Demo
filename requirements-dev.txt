@@ -1,0 +1,7 @@
+pytest>=7.0
+pytest-mock
+black
+mypy
+isort
+pre-commit
+pytest-cov
