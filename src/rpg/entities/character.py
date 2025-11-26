@@ -6,10 +6,10 @@ from dataclasses import dataclass
 @dataclass
 class Character:
     """Represents a game character with health, combat stats, and state.
-    
+
     Pure domain entity - contains only character data and validation.
     Does not manage inventory (delegated to InventoryService).
-    
+
     Attributes:
         name: Character's display name
         max_hp: Maximum hit points (must be positive)
@@ -18,6 +18,7 @@ class Character:
         hp: Current hit points (auto-initialized to max_hp)
         currency: Amount of money in dollars (auto-initialized to 0)
     """
+
     name: str
     max_hp: int
     attack: int = 0
@@ -35,15 +36,15 @@ class Character:
 
     def take_damage(self, amount: int) -> None:
         """Reduce character's HP by the given amount.
-        
+
         HP is clamped to minimum 0. Character dies (hp=0) if damage exceeds current hp.
-        
+
         Args:
             amount: Non-negative damage to apply
-            
+
         Raises:
             ValueError: If amount is negative
-            
+
         Examples:
             >>> character = Character("Hero", max_hp=50)
             >>> character.take_damage(15)
@@ -61,15 +62,15 @@ class Character:
 
     def heal(self, amount: int) -> None:
         """Restore character's HP by the given amount.
-        
+
         HP is clamped to max_hp. Cannot exceed maximum health.
-        
+
         Args:
             amount: Non-negative healing to apply
-            
+
         Raises:
             ValueError: If amount is negative
-            
+
         Examples:
             >>> character = Character("Hero", max_hp=50)
             >>> character.take_damage(30)  # hp = 20
@@ -86,13 +87,13 @@ class Character:
 
     def add_currency(self, amount: int) -> None:
         """Add currency (dollars) to the character's wallet.
-        
+
         Args:
             amount: Non-negative dollar amount to add
-            
+
         Raises:
             ValueError: If amount is negative
-            
+
         Examples:
             >>> character = Character("Merchant", max_hp=20)
             >>> character.currency
@@ -110,18 +111,18 @@ class Character:
 
     def remove_currency(self, amount: int) -> bool:
         """Remove currency (dollars) from the character's wallet.
-        
+
         Only removes currency if character has sufficient funds. Does not allow negative balance.
-        
+
         Args:
             amount: Non-negative dollar amount to remove
-            
+
         Returns:
             True if currency was removed, False if insufficient funds
-            
+
         Raises:
             ValueError: If amount is negative
-            
+
         Examples:
             >>> character = Character("Rich", max_hp=20)
             >>> character.add_currency(100)
