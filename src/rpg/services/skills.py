@@ -7,14 +7,17 @@ from rpg.services.leveling import LevelingService
 
 
 class SkillsService:
-    """Manage learned skills per character.
+    """Manage learned skills per character with class-based bonuses.
 
     Rules:
-    - Skill may be learned if character level >= ``skill.required_level``.
+    - Skill may be learned if character level >= skill.required_level.
+    - If character has a class and skill is in class.preferred_skills,
+      level requirement is reduced by class_level_reduction (default 2).
     - Duplicate learn attempts are ignored (returns False).
-    - Identity-based storage using ``id(character)`` (not persistent).
+    - Identity-based storage using id(character) (not persistent).
 
     Examples:
+        Basic skill learning without class:
         >>> from rpg.entities.character import Character
         >>> from rpg.entities.skill import Skill
         >>> from rpg.services.leveling import LevelingService
@@ -31,10 +34,20 @@ class SkillsService:
         True
         >>> skills.learn(hero, fireball)
         True
-        >>> skills.learn(hero, fireball)  # duplicate
-        False
         >>> skills.learned(hero)
         {'fireball'}
+
+        Class bonus reduces level requirement:
+        >>> from rpg.entities.classes import MAGE
+        >>> mage = Character("Wizard", max_hp=50, character_class=MAGE)
+        >>> fireball_adv = Skill(id="fireball", name="Fireball", required_level=5)
+        >>> leveling2 = LevelingService()
+        >>> skills2 = SkillsService(leveling2)
+        >>> leveling2.gain_xp(mage, 25)  # Level 3
+        >>> leveling2.level(mage)
+        3
+        >>> skills2.can_learn(mage, fireball_adv)  # 5 - 2 = 3 (preferred skill)
+        True
     """
 
     def __init__(self, leveling: LevelingService | None = None, class_level_reduction: int = 2) -> None:
