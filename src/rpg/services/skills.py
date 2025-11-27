@@ -38,7 +38,7 @@ class SkillsService:
         {'fireball'}
 
         Class bonus reduces level requirement:
-        >>> from rpg.entities.classes import MAGE
+        >>> from rpg.entities.predefined_classes import MAGE
         >>> mage = Character("Wizard", max_hp=50, character_class=MAGE)
         >>> fireball_adv = Skill(id="fireball", name="Fireball", required_level=5)
         >>> leveling2 = LevelingService()

@@ -192,10 +192,21 @@ Goal: Make the feature easy to understand and reuse.
 
 Goal: Check for quality, clarity, and gaps.
 
-- Coverage thinking: Ask “What important behavior is not yet tested?” and add tests if needed.  
+- Coverage thinking: Ask "What important behavior is not yet tested?" and add tests if needed.  
 - Smells: Look for overly complex functions, unclear names, and leaky abstractions.  
 - Consistency: Ensure naming, style, and patterns match the rest of the codebase.  
 - Suggestions: When you cannot safely make a change yourself (e.g., too risky, unclear requirements), clearly call it out and propose next steps.
+
+### Project Structure Assessment
+
+Goal: Ensure the project remains well-organized and maintainable.
+
+- File organization: Review the overall folder/file structure for logical grouping.
+- Naming consistency: Check that file and module names follow conventions.
+- Documentation placement: Verify docs, configs, and scripts are appropriately organized.
+- Test co-location: Ensure tests remain next to their source files.
+- Identify improvements: Suggest reorganizations that would improve discoverability and maintainability.
+- Apply changes carefully: If reorganizing, update all imports and re-run full test suite.
 
 Final Test Evidence:
 - Run full suite + doctests; present summarized output (counts, any skips).  

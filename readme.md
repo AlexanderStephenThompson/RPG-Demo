@@ -1,1 +1,103 @@
-Test!
+# TDD Python RPG
+
+A Python RPG built strictly following Test-Driven Development and design patterns. Features clean architecture with domain-driven design for maximum clarity and maintainability.
+
+## Features
+
+### Character System
+- ⚔️ **Character Classes** - Warrior, Mage, Rogue with flexible specialization
+  - Stat modifiers (HP, attack, defense) applied at creation
+  - Skill preferences reduce level requirements without hard restrictions
+  - Any class can learn any skill or equip any item
+- 📊 **Leveling System** - XP-based progression with carry-over mechanics
+- 🎓 **Skills System** - Level-gated skill learning with class bonuses
+
+### Combat & Items
+- ⚔️ **Combat System** - Turn-based combat with critical hits
+- 🎒 **Inventory Management** - Equip items to modify stats dynamically
+- 🗡️ **Equipment** - Weapons and armor with stat bonuses
+
+### Economy
+- 🏪 **Shop System** - Buy/sell items with currency
+- 🏦 **Banking** - Deposit, withdraw, transfer between accounts
+- 💰 **Currency** - Character wallet and bank balance tracking
+
+### Progression & Goals
+- 🎯 **Quest System** - Accept quests, complete objectives, track progress
+- 🏆 **Achievements** - Unlock achievements for milestones
+- 🌱 **Gardening Skill** - Tutorial quest introduces specialized skills
+
+## Project Structure
+
+```
+src/rpg/
+├── entities/          # Pure domain models (data + validation)
+│   ├── character.py   # Character with class integration
+│   ├── character_class.py  # Class definition entity
+│   ├── predefined_classes.py  # Warrior, Mage, Rogue
+│   ├── skill.py       # Skill entity
+│   ├── item.py        # Equipment and consumables
+│   ├── quest.py       # Quest and Objective entities
+│   └── achievement.py
+├── services/          # Business logic
+│   ├── leveling.py    # XP and level tracking
+│   ├── skills.py      # Skill learning with class bonuses
+│   ├── inventory.py   # Item management
+│   ├── shop.py        # Commerce transactions
+│   ├── bank.py        # Account management
+│   ├── quest_log.py   # Quest tracking
+│   └── achievements.py
+└── systems/           # Cross-cutting systems
+    └── combat.py      # Combat resolution
+
+scripts/
+└── run_demo.py        # Interactive demo
+
+docs/
+├── README.md          # Detailed documentation
+├── copilot-instructions.md  # Development guidelines
+└── DOCTEST_IMPLEMENTATION.md
+```
+
+## Running
+
+```powershell
+# Run all tests (pytest + doctests)
+powershell -ExecutionPolicy Bypass -File .\scripts\run_all_tests.ps1
+
+# Run only pytest
+C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe -m pytest
+
+# Run demo
+C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\run_demo.py
+```
+
+## Test Coverage
+
+✅ **77 passing tests** (including doctests)
+- Character classes and stat modifiers
+- Skill learning with class preferences
+- Quest system with objectives
+- Achievement tracking
+- Combat, inventory, shop, bank systems
+
+## Development Principles
+
+- **Red-Green-Refactor** - Write failing test first, implement minimal code, refactor
+- **Domain-Driven Design** - Entities separate from services, clear separation of concerns
+- **Dependency Injection** - Protocol-based injection for testability (e.g., RandomProvider)
+- **Semantic Naming** - Verbose, intention-revealing names following best practices
+- **Co-located Tests** - Tests live next to source code (*_test.py pattern)
+- **Flexible Specialization** - Classes provide bonuses without hard restrictions
+
+## Documentation
+
+See `docs/copilot-instructions.md` for comprehensive development guidelines including:
+- TDD workflow and testing conventions
+- Architecture patterns and design principles
+- Code style and naming conventions
+- Common pitfalls to avoid
+
+## License
+
+Educational project demonstrating TDD and clean architecture principles.

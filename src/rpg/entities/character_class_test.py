@@ -1,6 +1,6 @@
 from rpg.entities.character import Character
 from rpg.entities.character_class import CharacterClass
-from rpg.entities.classes import WARRIOR, MAGE, ROGUE
+from rpg.entities.predefined_classes import WARRIOR, MAGE, ROGUE
 
 
 def test_warrior_class_modifies_base_stats():

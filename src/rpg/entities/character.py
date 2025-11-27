@@ -30,7 +30,7 @@ class Character:
 
     Examples:
         Character with class modifiers:
-        >>> from rpg.entities.classes import WARRIOR
+        >>> from rpg.entities.predefined_classes import WARRIOR
         >>> warrior = Character("Conan", max_hp=100, attack=5, defense=2, character_class=WARRIOR)
         >>> warrior.max_hp  # 100 * 1.5 = 150
         150

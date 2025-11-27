@@ -1,6 +1,6 @@
 from rpg.entities.character import Character
 from rpg.entities.skill import Skill
-from rpg.entities.classes import WARRIOR, MAGE
+from rpg.entities.predefined_classes import WARRIOR, MAGE
 from rpg.services.leveling import LevelingService
 from rpg.services.skills import SkillsService
 
