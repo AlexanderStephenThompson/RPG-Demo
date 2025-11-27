@@ -120,14 +120,18 @@ Goal: Turn the spec into concrete examples and tests.
 
 ### Critical TDD Rule: NO Untested Code
 
-**EVERYTHING must have tests - including integration layers, game loops, and CLI code.**
+**EVERYTHING must have tests - including integration layers, interface code, and coordination logic.**
 
-Common mistake: Writing "just the glue code" or "just the UI layer" without tests because "it's simple."
+Common mistake: Writing "just the glue code" or "just the interface layer" without tests because "it's simple."
 
 Reality check:
 - Integration code calls methods that may not exist
 - Integration code assumes API contracts that may be wrong
-- "Simple" CLI code has bugs in user flows, edge cases, and error handling
+- "Simple" interface code (CLI, web handlers, API endpoints, GUI callbacks) has bugs in:
+  - Method name typos and wrong API calls
+  - User/request flow edge cases
+  - Error handling and validation
+  - State management between layers
 
 **Required approach for ALL code:**
 1. Write a test that exercises the behavior
@@ -137,12 +141,18 @@ Reality check:
 
 **This applies to:**
 - Game state management classes (save/load, initialization)
-- CLI menus and user input flows
-- Integration between services
-- Helper utilities
+- ANY interface layer (CLI menus, web routes, API endpoints, GUI handlers, console commands)
+- Integration/coordination between services
+- Helper utilities and "glue code"
 - Literally everything that executes
 
 **If you skip tests "to move faster," you WILL introduce bugs that TDD would catch immediately.**
+
+**Examples of bugs caught by integration tests:**
+- Calling `xp_for_next_level()` when method is named `next_threshold()`
+- Calling `has_item()` when method doesn't exist (should use `list_items()`)
+- Wrong parameter order or missing required parameters
+- Incorrect assumptions about return types or data structures
 
 ### Red–Green–Local Refactor (Implementer & Local Refactorer)
 

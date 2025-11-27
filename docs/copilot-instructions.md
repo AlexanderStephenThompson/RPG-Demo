@@ -13,24 +13,37 @@ This is a **Test-Driven Development** RPG built with explicit design patterns. A
 
 This includes:
 - ✅ Core entities and services (obvious)
-- ✅ Integration layers (GameState, coordinators between services)
-- ✅ CLI/UI code (game loops, menus, user input flows)
-- ✅ Helper utilities and "glue code"
-- ✅ Save/load functionality
-- ✅ ANY code that executes
+- ✅ Integration/coordination layers (GameState, service orchestration)
+- ✅ Interface code of ANY kind:
+  - CLI (game loops, menus, console commands)
+  - Web (routes, handlers, controllers)
+  - API (endpoints, request processing)
+  - GUI (event handlers, callbacks)
+  - Scripts (automation, utilities)
+- ✅ "Glue code" and adapters between layers
+- ✅ Save/load and persistence logic
+- ✅ Configuration and initialization code
+- ✅ LITERALLY ANY CODE THAT EXECUTES
 
-**Common failure mode**: "This is just simple integration code, I don't need tests."
+**Common failure mode**: "This is just simple interface/integration code, I don't need tests."
 
-**Reality**: Integration code has the highest bug density because:
-- It calls methods that may not exist
-- It assumes API contracts that may be wrong  
-- It has user flow edge cases you didn't consider
-- You make typos in method names (`xp_for_next_level` vs `next_threshold`)
-- You assume methods exist that don't (`has_item` doesn't exist on InventoryService)
+**Reality**: Interface and integration code has the HIGHEST bug density because:
+- It calls methods that may not exist (wrong API assumptions)
+- It makes typos in method names that compilers don't catch
+- It assumes API contracts that are incorrect
+- It has flow edge cases and error conditions you didn't consider
+- It coordinates multiple services with incorrect ordering or state
 
-**If you skip tests, you will ship bugs that TDD would catch in 30 seconds.**
+**Real examples from this project:**
+- Called `xp_for_next_level()` when method is `next_threshold()`
+- Called `has_item()` when InventoryService doesn't have this method
+- These bugs existed in ~500 lines of untested interface code
+- TDD would have caught both in under 30 seconds
+
+**If you skip tests, you will ship bugs. Period.**
 
 Write the test FIRST. Even for "trivial" code. Especially for "trivial" code.
+The test is what tells you if the API you're calling actually exists.
 
 ## Architecture & Structure
 
