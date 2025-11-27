@@ -208,21 +208,13 @@ Goal: Ensure the project remains well-organized and maintainable.
 - Identify improvements: Suggest reorganizations that would improve discoverability and maintainability.
 - Apply changes carefully: If reorganizing, update all imports and re-run full test suite.
 
-Final Test Evidence:
+### Final Test Evidence & Merge to Main
+
+Test Evidence:
 - Run full suite + doctests; present summarized output (counts, any skips).  
 - If any flaky behavior observed, stabilize before merge.
 
-**Phase 3 outcome:** The feature is structurally sound, documented, tested (with evidence reported), and ready for merge (pending user confirmation).
-
----
-
-## Phase 4: Merge & Cleanup (After User Approval)
-
-### Merge to Main
-
-Goal: Integrate feature into main branch and clean up.
-
-Merge Process:
+Merge Process (After User Approval):
 - Switch to main: `git checkout main`
 - Pull latest changes: `git pull origin main` (in case of remote updates)
 - Merge feature branch: `git merge feature/<name> --no-ff -m "Merge feature/<name>: <summary>"`
@@ -234,7 +226,7 @@ Branch Cleanup:
 - Delete remote feature branch (if pushed): `git push origin --delete feature/<name>`
 - Confirm clean state: `git branch -a` should show only main (and origin/main)
 
-**Phase 4 outcome:** Feature merged to main, tests passing on main, feature branch deleted locally and remotely, working directory clean.
+**Phase 3 outcome:** The feature is structurally sound, documented, tested, merged to main, and feature branch cleaned up. Working directory returns to main branch with all tests passing.
 
 ---
 
