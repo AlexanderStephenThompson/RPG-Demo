@@ -117,7 +117,7 @@ class RPGGame:
         player = game_state.player
         level = game_state.leveling.level(player)
         xp = game_state.leveling.xp(player)
-        xp_needed = game_state.leveling.xp_for_next_level(player)
+        xp_needed = game_state.leveling.next_threshold(player)
         
         print(f"\n📊 {player.name} - Level {level} {player.character_class.name if player.character_class else 'Adventurer'}")
         print(f"   HP: {player.hp}/{player.max_hp}")
