@@ -9,6 +9,29 @@ This is a **Test-Driven Development** RPG built with explicit design patterns. A
 
 **Critical**: Never implement game logic without a corresponding test. Tests are written before implementation code.
 
+**⚠️ CRITICAL: ALL CODE REQUIRES TESTS - NO EXCEPTIONS**
+
+This includes:
+- ✅ Core entities and services (obvious)
+- ✅ Integration layers (GameState, coordinators between services)
+- ✅ CLI/UI code (game loops, menus, user input flows)
+- ✅ Helper utilities and "glue code"
+- ✅ Save/load functionality
+- ✅ ANY code that executes
+
+**Common failure mode**: "This is just simple integration code, I don't need tests."
+
+**Reality**: Integration code has the highest bug density because:
+- It calls methods that may not exist
+- It assumes API contracts that may be wrong  
+- It has user flow edge cases you didn't consider
+- You make typos in method names (`xp_for_next_level` vs `next_threshold`)
+- You assume methods exist that don't (`has_item` doesn't exist on InventoryService)
+
+**If you skip tests, you will ship bugs that TDD would catch in 30 seconds.**
+
+Write the test FIRST. Even for "trivial" code. Especially for "trivial" code.
+
 ## Architecture & Structure
 
 ### Layer Separation (Domain-Driven Design + Clean Architecture)

@@ -118,6 +118,32 @@ Goal: Turn the spec into concrete examples and tests.
 
 ## Phase 2: Execute (After Branch Creation)
 
+### Critical TDD Rule: NO Untested Code
+
+**EVERYTHING must have tests - including integration layers, game loops, and CLI code.**
+
+Common mistake: Writing "just the glue code" or "just the UI layer" without tests because "it's simple."
+
+Reality check:
+- Integration code calls methods that may not exist
+- Integration code assumes API contracts that may be wrong
+- "Simple" CLI code has bugs in user flows, edge cases, and error handling
+
+**Required approach for ALL code:**
+1. Write a test that exercises the behavior
+2. Run it (Red)
+3. Implement minimal code (Green)
+4. Refactor
+
+**This applies to:**
+- Game state management classes (save/load, initialization)
+- CLI menus and user input flows
+- Integration between services
+- Helper utilities
+- Literally everything that executes
+
+**If you skip tests "to move faster," you WILL introduce bugs that TDD would catch immediately.**
+
 ### Red–Green–Local Refactor (Implementer & Local Refactorer)
 
 Branch Creation:
