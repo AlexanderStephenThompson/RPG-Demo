@@ -55,7 +55,7 @@ class RPGGame:
     
     def show_main_menu(self):
         """Display the main menu."""
-        self.print_header("⚔️  PYTHON RPG - MAIN MENU  ⚔️")
+        self.print_header("[X]  PYTHON RPG - MAIN MENU  [X]")
         print("\n1. New Game")
         print("2. Load Game")
         print("3. Quit")
@@ -63,7 +63,7 @@ class RPGGame:
     
     def create_character(self) -> GameState:
         """Character creation wizard."""
-        self.print_header("🎭 CHARACTER CREATION")
+        self.print_header("[*] CHARACTER CREATION")
         
         # Get name
         print("\nWhat is your name, adventurer?")
@@ -105,7 +105,7 @@ class RPGGame:
         # Create game state
         game_state = GameState.new_game(name, class_name)
         
-        self.print_header("🌟 CHARACTER CREATED!")
+        self.print_header("[*] CHARACTER CREATED!")
         self.show_character_stats(game_state)
         print("\nPress Enter to begin your adventure...")
         input()
@@ -119,28 +119,28 @@ class RPGGame:
         xp = game_state.leveling.xp(player)
         xp_needed = game_state.leveling.next_threshold(player)
         
-        print(f"\n📊 {player.name} - Level {level} {player.character_class.name if player.character_class else 'Adventurer'}")
+        print(f"\n[>] {player.name} - Level {level} {player.character_class.name if player.character_class else 'Adventurer'}")
         print(f"   HP: {player.hp}/{player.max_hp}")
         print(f"   ATK: {player.attack} | DEF: {player.defense}")
         print(f"   XP: {xp}/{xp_needed}")
-        print(f"   💰 Gold: ${player.currency}")
-        print(f"   📍 Location: {game_state.location.title()}")
+        print(f"   $ Gold: ${player.currency}")
+        print(f"    Location: {game_state.location.title()}")
     
     def game_loop(self):
         """Main game loop."""
         while self.running:
-            self.print_header("🏰 VILLAGE CENTER")
+            self.print_header("[#] VILLAGE CENTER")
             self.show_character_stats(self.game_state)
             
             print("\nWhat would you like to do?")
-            print("1. 🗺️  Explore the wilderness")
-            print("2. ⚔️  Training grounds (combat)")
-            print("3. 📚 Learn skills")
-            print("4. 🎒 Inventory")
-            print("5. 🏪 Visit shop")
-            print("6. 🏦 Visit bank")
-            print("7. 💾 Save game")
-            print("8. 🚪 Quit")
+            print("1. [~]  Explore the wilderness")
+            print("2. [X]  Training grounds (combat)")
+            print("3. [+] Learn skills")
+            print("4. [I] Inventory")
+            print("5. [$] Visit shop")
+            print("6. [B] Visit bank")
+            print("7. [S] Save game")
+            print("8. [Q] Quit")
             
             choice = self.get_input("\nEnter choice (1-8): ")
             
@@ -166,7 +166,7 @@ class RPGGame:
     
     def explore(self):
         """Random exploration events."""
-        self.print_header("🗺️  EXPLORATION")
+        self.print_header("[~]  EXPLORATION")
         
         events = [
             ("combat", 0.4),
@@ -186,25 +186,25 @@ class RPGGame:
                 break
         
         if event == "combat":
-            print("\n⚔️  You encounter a monster!")
+            print("\n[X]  You encounter a monster!")
             input("Press Enter to fight...")
             self.combat_encounter()
         
         elif event == "treasure":
             gold = random.randint(20, 100)
             self.game_state.player.currency += gold
-            print(f"\n💰 You found a treasure chest containing ${gold} gold!")
+            print(f"\n$ You found a treasure chest containing ${gold} gold!")
             input("\nPress Enter to continue...")
         
         elif event == "skill":
             skill = random.choice(ALL_UNIVERSAL_SKILLS)
-            print(f"\n📚 You discover an opportunity to practice {skill.name}!")
+            print(f"\n[+] You discover an opportunity to practice {skill.name}!")
             
             if self.game_state.skills.can_learn(self.game_state.player, skill):
                 learned_ids = self.game_state.skills.learned(self.game_state.player)
                 if skill.id not in learned_ids:
                     self.game_state.skills.learn(self.game_state.player, skill)
-                    print(f"✨ You learned {skill.name}!")
+                    print(f"* You learned {skill.name}!")
                 else:
                     print(f"You already know {skill.name}.")
             else:
@@ -216,14 +216,14 @@ class RPGGame:
             input("\nPress Enter to continue...")
         
         else:
-            print("\n🌲 You wander through the peaceful forest. Nothing happens.")
+            print("\n You wander through the peaceful forest. Nothing happens.")
             input("\nPress Enter to continue...")
         
         self.game_state.turns_played += 1
     
     def combat_encounter(self):
         """Run a combat encounter."""
-        self.print_header("⚔️  COMBAT!")
+        self.print_header("[X]  COMBAT!")
         
         # Generate enemy
         enemy_types = [
@@ -242,7 +242,7 @@ class RPGGame:
         )
         enemy_reward = enemy_data[4]
         
-        print(f"\n💀 A wild {enemy.name} appears!")
+        print(f"\n[!] A wild {enemy.name} appears!")
         print(f"   HP: {enemy.hp}/{enemy.max_hp} | ATK: {enemy.attack} | DEF: {enemy.defense}")
         
         # Combat loop
@@ -260,28 +260,28 @@ class RPGGame:
             
             if choice == "2":
                 if random.random() < 0.5:
-                    print("\n🏃 You fled successfully!")
+                    print("\n> You fled successfully!")
                     input("\nPress Enter to continue...")
                     return
                 else:
-                    print("\n❌ Failed to escape!")
+                    print("\nX Failed to escape!")
             
             # Player attacks
-            print(f"\n⚔️  You attack {enemy.name}!")
+            print(f"\n[X]  You attack {enemy.name}!")
             damage = resolve_attack(self.game_state.player, enemy)
-            print(f"   💥 Dealt {damage} damage!")
+            print(f"   ! Dealt {damage} damage!")
             
             if not enemy.is_alive():
                 break
             
             # Enemy attacks
-            print(f"\n⚔️  {enemy.name} counterattacks!")
+            print(f"\n[X]  {enemy.name} counterattacks!")
             damage = resolve_attack(enemy, self.game_state.player)
-            print(f"   💥 You took {damage} damage!")
+            print(f"   ! You took {damage} damage!")
         
         # Combat resolution
         if not self.game_state.player.is_alive():
-            self.print_header("💀 GAME OVER")
+            self.print_header("[!] GAME OVER")
             print(f"\nYou were defeated by {enemy.name}...")
             print("Your adventure ends here.")
             input("\nPress Enter to return to main menu...")
@@ -289,7 +289,7 @@ class RPGGame:
             return
         
         # Victory
-        print(f"\n🎉 Victory! {enemy.name} has been defeated!")
+        print(f"\n* Victory! {enemy.name} has been defeated!")
         
         # Rewards
         xp_gained = random.randint(10, 30)
@@ -297,12 +297,12 @@ class RPGGame:
         self.game_state.player.currency += enemy_reward
         self.game_state.enemies_defeated += 1
         
-        print(f"   ✨ Gained {xp_gained} XP!")
-        print(f"   💰 Looted ${enemy_reward} gold!")
+        print(f"   * Gained {xp_gained} XP!")
+        print(f"   $ Looted ${enemy_reward} gold!")
         
         # Check for level up
         new_level = self.game_state.leveling.level(self.game_state.player)
-        print(f"   📊 Current Level: {new_level}")
+        print(f"   [>] Current Level: {new_level}")
         
         # Heal player partially
         self.game_state.player.heal(self.game_state.player.max_hp // 4)
@@ -311,7 +311,7 @@ class RPGGame:
     
     def skill_menu(self):
         """Display and manage skills."""
-        self.print_header("📚 SKILLS")
+        self.print_header("[+] SKILLS")
         
         # Get learned skill IDs
         learned_ids = self.game_state.skills.learned(self.game_state.player)
@@ -324,17 +324,17 @@ class RPGGame:
                      if self.game_state.skills.can_learn(self.game_state.player, s) 
                      and s.id not in learned_ids]
         
-        print(f"\n✅ Learned Skills ({len(learned_skills)}):")
+        print(f"\n[OK] Learned Skills ({len(learned_skills)}):")
         if learned_skills:
             for skill in learned_skills:
                 print(f"   - {skill.name} ({skill.category})")
         else:
             print("   None yet!")
         
-        print(f"\n📖 Available to Learn ({len(available)}):")
+        print(f"\n Available to Learn ({len(available)}):")
         if available:
             for i, skill in enumerate(available, 1):
-                bonus = " ⭐" if self.game_state.player.character_class and skill.id in self.game_state.player.character_class.preferred_skills else ""
+                bonus = " *" if self.game_state.player.character_class and skill.id in self.game_state.player.character_class.preferred_skills else ""
                 print(f"   {i}. {skill.name} ({skill.category}) - Level {skill.required_level}{bonus}")
             
             print("\nEnter number to learn skill, or 'b' to go back:")
@@ -343,7 +343,7 @@ class RPGGame:
             if choice.isdigit() and 1 <= int(choice) <= len(available):
                 skill = available[int(choice) - 1]
                 self.game_state.skills.learn(self.game_state.player, skill)
-                print(f"\n✨ You learned {skill.name}!")
+                print(f"\n* You learned {skill.name}!")
         else:
             print("   None available at your level!")
         
@@ -351,7 +351,7 @@ class RPGGame:
     
     def inventory_menu(self):
         """Display inventory."""
-        self.print_header("🎒 INVENTORY")
+        self.print_header("[I] INVENTORY")
         
         items = self.game_state.inventory.list_items()
         
@@ -367,7 +367,7 @@ class RPGGame:
     
     def shop_menu(self):
         """Visit the shop."""
-        self.print_header("🏪 VILLAGE SHOP")
+        self.print_header("[$] VILLAGE SHOP")
         
         # Create shop with items
         shop = ShopService("General Store")
@@ -408,14 +408,14 @@ class RPGGame:
             if choice.isdigit() and 1 <= int(choice) <= len(inventory):
                 item, price = inventory[int(choice) - 1]
                 if shop.sell_item_to(item.id, self.game_state.player, self.game_state.inventory):
-                    print(f"\n✅ Purchased {item.name}!")
+                    print(f"\n[OK] Purchased {item.name}!")
                     
                     # Auto-equip if it's equipment and better
                     if item.equip_attack or item.equip_defense:
                         self.game_state.inventory.equip(item.id, self.game_state.player)
-                        print(f"⚔️  Equipped {item.name}!")
+                        print(f"[X]  Equipped {item.name}!")
                 else:
-                    print(f"\n❌ Not enough gold! Need ${price}.")
+                    print(f"\nX Not enough gold! Need ${price}.")
         else:
             print("No items available for purchase!")
         
@@ -423,7 +423,7 @@ class RPGGame:
     
     def bank_menu(self):
         """Visit the bank."""
-        self.print_header("🏦 VILLAGE BANK")
+        self.print_header("[B] VILLAGE BANK")
         
         balance = self.game_state.bank.check_balance(self.game_state.player)
         
@@ -443,11 +443,11 @@ class RPGGame:
                 if amount_str.isdigit():
                     amount = int(amount_str)
                     if self.game_state.bank.deposit_from(self.game_state.player, amount):
-                        print(f"✅ Deposited ${amount}")
+                        print(f"[OK] Deposited ${amount}")
                     else:
-                        print("❌ Invalid amount!")
+                        print("X Invalid amount!")
             else:
-                print("\n❌ You have no gold to deposit!")
+                print("\nX You have no gold to deposit!")
         
         elif choice == "2":
             if balance > 0:
@@ -456,45 +456,45 @@ class RPGGame:
                 if amount_str.isdigit():
                     amount = int(amount_str)
                     if self.game_state.bank.withdraw_to(self.game_state.player, amount):
-                        print(f"✅ Withdrew ${amount}")
+                        print(f"[OK] Withdrew ${amount}")
                     else:
-                        print("❌ Invalid amount!")
+                        print("X Invalid amount!")
             else:
-                print("\n❌ Your account is empty!")
+                print("\nX Your account is empty!")
         
         input("\nPress Enter to continue...")
     
     def save_game(self):
         """Save the current game state."""
         self.game_state.save_to_file(self.save_path)
-        print("\n💾 Game saved successfully!")
+        print("\n[S] Game saved successfully!")
         input("\nPress Enter to continue...")
     
     def load_game(self) -> bool:
         """Load a saved game."""
         if not self.save_path.exists():
-            print("\n❌ No saved game found!")
+            print("\nX No saved game found!")
             input("\nPress Enter to continue...")
             return False
         
         try:
             self.game_state = GameState.load_from_file(self.save_path)
-            print("\n✅ Game loaded successfully!")
+            print("\n[OK] Game loaded successfully!")
             input("\nPress Enter to continue...")
             return True
         except Exception as e:
-            print(f"\n❌ Error loading game: {e}")
+            print(f"\nX Error loading game: {e}")
             input("\nPress Enter to continue...")
             return False
     
     def quit_game(self):
         """Quit the game."""
-        print("\n👋 Thanks for playing!")
+        print("\n Thanks for playing!")
         self.running = False
     
     def run(self):
         """Start the game."""
-        self.print_header("⚔️  WELCOME TO PYTHON RPG  ⚔️")
+        self.print_header("[X]  WELCOME TO PYTHON RPG  [X]")
         print("\nA text-based adventure with classes, skills, and combat!")
         
         while True:
@@ -515,7 +515,7 @@ class RPGGame:
             
             elif choice == "3":
                 # Quit
-                print("\n👋 Goodbye!")
+                print("\n Goodbye!")
                 break
             
             else:
@@ -525,3 +525,4 @@ class RPGGame:
 if __name__ == "__main__":
     game = RPGGame()
     game.run()
+
