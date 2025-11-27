@@ -13,6 +13,7 @@ class Skill:
         id: Stable identifier
         name: Display name
         required_level: Minimum character level to learn (>=1)
+        category: Optional category for organization (e.g., "Gathering", "Crafting", "Utility")
 
     Examples:
         Basic creation:
@@ -21,6 +22,11 @@ class Skill:
         'Fireball'
         >>> fireball.required_level
         2
+
+        With category:
+        >>> fishing = Skill(id="fishing", name="Fishing", required_level=1, category="Gathering")
+        >>> fishing.category
+        'Gathering'
 
         Validation rules:
         >>> Skill(id="s1", name="Slash", required_level=1).required_level
@@ -33,6 +39,7 @@ class Skill:
     id: str
     name: str
     required_level: int = 1
+    category: str = ""
 
     def __post_init__(self) -> None:
         if not self.id:
