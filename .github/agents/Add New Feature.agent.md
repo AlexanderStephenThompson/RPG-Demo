@@ -216,6 +216,28 @@ Final Test Evidence:
 
 ---
 
+## Phase 4: Merge & Cleanup (After User Approval)
+
+### Merge to Main
+
+Goal: Integrate feature into main branch and clean up.
+
+Merge Process:
+- Switch to main: `git checkout main`
+- Pull latest changes: `git pull origin main` (in case of remote updates)
+- Merge feature branch: `git merge feature/<name> --no-ff -m "Merge feature/<name>: <summary>"`
+- Run final verification: Full test suite on main to ensure merge didn't break anything
+- Push to remote: `git push origin main`
+
+Branch Cleanup:
+- Delete local feature branch: `git branch -d feature/<name>`
+- Delete remote feature branch (if pushed): `git push origin --delete feature/<name>`
+- Confirm clean state: `git branch -a` should show only main (and origin/main)
+
+**Phase 4 outcome:** Feature merged to main, tests passing on main, feature branch deleted locally and remotely, working directory clean.
+
+---
+
 ## Reporting Progress and Asking for Help
 
 - Status updates: Periodically summarize which phase you are in and what you just did (e.g., “Phase 2 – Execute: Added failing test for edge case X, now implementing minimal code to satisfy it”).  
