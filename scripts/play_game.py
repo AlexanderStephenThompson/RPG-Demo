@@ -201,7 +201,8 @@ class RPGGame:
             print(f"\n📚 You discover an opportunity to practice {skill.name}!")
             
             if self.game_state.skills.can_learn(self.game_state.player, skill):
-                if not self.game_state.skills.has_learned(self.game_state.player, skill):
+                learned_ids = self.game_state.skills.learned(self.game_state.player)
+                if skill.id not in learned_ids:
                     self.game_state.skills.learn(self.game_state.player, skill)
                     print(f"✨ You learned {skill.name}!")
                 else:
@@ -312,13 +313,20 @@ class RPGGame:
         """Display and manage skills."""
         self.print_header("📚 SKILLS")
         
-        learned = self.game_state.skills.list_learned_skills(self.game_state.player)
-        available = [s for s in ALL_UNIVERSAL_SKILLS if self.game_state.skills.can_learn(self.game_state.player, s) 
-                     and not self.game_state.skills.has_learned(self.game_state.player, s)]
+        # Get learned skill IDs
+        learned_ids = self.game_state.skills.learned(self.game_state.player)
         
-        print(f"\n✅ Learned Skills ({len(learned)}):")
-        if learned:
-            for skill in learned:
+        # Convert IDs to skill objects for display
+        learned_skills = [s for s in ALL_UNIVERSAL_SKILLS if s.id in learned_ids]
+        
+        # Get available skills to learn
+        available = [s for s in ALL_UNIVERSAL_SKILLS 
+                     if self.game_state.skills.can_learn(self.game_state.player, s) 
+                     and s.id not in learned_ids]
+        
+        print(f"\n✅ Learned Skills ({len(learned_skills)}):")
+        if learned_skills:
+            for skill in learned_skills:
                 print(f"   - {skill.name} ({skill.category})")
         else:
             print("   None yet!")
