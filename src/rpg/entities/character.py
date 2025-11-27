@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rpg.entities.character_class import CharacterClass
 
 
 @dataclass
@@ -15,6 +19,7 @@ class Character:
         max_hp: Maximum hit points (must be positive)
         attack: Attack stat used in damage calculation
         defense: Defense stat that reduces incoming damage
+        character_class: Optional class that modifies base stats
         hp: Current hit points (auto-initialized to max_hp)
         currency: Amount of money in dollars (auto-initialized to 0)
     """
@@ -23,10 +28,18 @@ class Character:
     max_hp: int
     attack: int = 0
     defense: int = 0
+    character_class: CharacterClass | None = None
 
     def __post_init__(self) -> None:
         if self.max_hp <= 0:
             raise ValueError("max_hp must be positive")
+        
+        # Apply class modifiers if class is set
+        if self.character_class:
+            self.max_hp = int(self.max_hp * self.character_class.hp_multiplier)
+            self.attack += self.character_class.attack_bonus
+            self.defense += self.character_class.defense_bonus
+        
         self.hp: int = int(self.max_hp)
         self.currency: int = 0
 
