@@ -1,6 +1,22 @@
 # TDD Python RPG
 
-A Python RPG built strictly following Test-Driven Development and design patterns. Features clean architecture with domain-driven design for maximum clarity and maintainability.
+A playable console-based Python RPG built strictly following Test-Driven Development and design patterns. Features clean architecture with domain-driven design for maximum clarity and maintainability.
+
+## 🎮 How to Play
+
+```powershell
+# Start the game
+C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\play_game.py
+```
+
+**Game Features:**
+- Create a character with one of three classes (Warrior, Mage, Rogue)
+- Explore the wilderness and encounter random events
+- Engage in turn-based combat with monsters
+- Learn universal skills (Gathering, Crafting, Utility)
+- Buy and equip items from the shop
+- Save and load your progress
+- Gain XP and level up your character
 
 ## Features
 
@@ -52,11 +68,14 @@ src/rpg/
 │   ├── bank.py        # Account management
 │   ├── quest_log.py   # Quest tracking
 │   └── achievements.py
-└── systems/           # Cross-cutting systems
-    └── combat.py      # Combat resolution
+├── systems/           # Cross-cutting systems
+│   └── combat.py      # Combat resolution
+└── game/              # Game loop and state management
+    └── game_state.py  # Save/load and game state
 
 scripts/
-└── run_demo.py        # Interactive demo
+├── play_game.py       # Main game entry point (playable CLI RPG)
+└── run_demo.py        # Feature demonstration
 
 docs/
 ├── README.md          # Detailed documentation
@@ -67,14 +86,17 @@ docs/
 ## Running
 
 ```powershell
+# Play the game (main CLI RPG)
+C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\play_game.py
+
+# Run feature demo
+C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\run_demo.py
+
 # Run all tests (pytest + doctests)
 powershell -ExecutionPolicy Bypass -File .\scripts\run_all_tests.ps1
 
 # Run only pytest
 C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe -m pytest
-
-# Run demo
-C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\run_demo.py
 ```
 
 ## Test Coverage
