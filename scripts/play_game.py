@@ -374,7 +374,9 @@ class RPGGame:
         ]
         
         for item, price in items_for_sale:
-            if not self.game_state.inventory.has_item(item.id):
+            # Check if player already owns this item
+            owned_ids = [i.id for i in self.game_state.inventory.list_items()]
+            if item.id not in owned_ids:
                 shop.add_item_for_sale(item, price)
         
         print(f"\nWelcome to {shop.name}!")
