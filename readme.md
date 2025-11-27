@@ -11,6 +11,10 @@ A Python RPG built strictly following Test-Driven Development and design pattern
   - Any class can learn any skill or equip any item
 - 📊 **Leveling System** - XP-based progression with carry-over mechanics
 - 🎓 **Skills System** - Level-gated skill learning with class bonuses
+- 🛠️ **Universal Skills** - 12 life skills across 3 categories
+  - **Gathering**: Fishing, Mining, Herbalism, Foraging
+  - **Crafting**: Cooking, Alchemy, Blacksmithing, Tailoring
+  - **Utility**: First Aid, Bartering, Camping, Navigation
 
 ### Combat & Items
 - ⚔️ **Combat System** - Turn-based combat with critical hits
@@ -35,7 +39,8 @@ src/rpg/
 │   ├── character.py   # Character with class integration
 │   ├── character_class.py  # Class definition entity
 │   ├── predefined_classes.py  # Warrior, Mage, Rogue
-│   ├── skill.py       # Skill entity
+│   ├── skill.py       # Skill entity with category field
+│   ├── universal_skills.py  # 12 life skills (Gathering, Crafting, Utility)
 │   ├── item.py        # Equipment and consumables
 │   ├── quest.py       # Quest and Objective entities
 │   └── achievement.py
@@ -74,9 +79,10 @@ C:/Users/Alexa/AppData/Local/Programs/Python/Python313/python.exe scripts\run_de
 
 ## Test Coverage
 
-✅ **77 passing tests** (including doctests)
+✅ **51 passing tests** (including doctests)
 - Character classes and stat modifiers
 - Skill learning with class preferences
+- Universal skills with categories
 - Quest system with objectives
 - Achievement tracking
 - Combat, inventory, shop, bank systems
