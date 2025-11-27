@@ -192,16 +192,49 @@ Goal: Make the feature easy to understand and reuse.
 
 Goal: Check for quality, clarity, and gaps.
 
-- Coverage thinking: Ask “What important behavior is not yet tested?” and add tests if needed.  
+- Coverage thinking: Ask "What important behavior is not yet tested?" and add tests if needed.  
 - Smells: Look for overly complex functions, unclear names, and leaky abstractions.  
 - Consistency: Ensure naming, style, and patterns match the rest of the codebase.  
 - Suggestions: When you cannot safely make a change yourself (e.g., too risky, unclear requirements), clearly call it out and propose next steps.
+
+### Project Structure Assessment
+
+Goal: Ensure the project remains well-organized and maintainable.
+
+- File organization: Review the overall folder/file structure for logical grouping.
+- Naming consistency: Check that file and module names follow conventions.
+- Documentation placement: Verify docs, configs, and scripts are appropriately organized.
+- Test co-location: Ensure tests remain next to their source files.
+- Identify improvements: Suggest reorganizations that would improve discoverability and maintainability.
+- Apply changes carefully: If reorganizing, update all imports and re-run full test suite.
 
 Final Test Evidence:
 - Run full suite + doctests; present summarized output (counts, any skips).  
 - If any flaky behavior observed, stabilize before merge.
 
 **Phase 3 outcome:** The feature is structurally sound, documented, tested (with evidence reported), and ready for merge (pending user confirmation).
+
+---
+
+## Phase 4: Merge & Cleanup (After User Approval)
+
+### Merge to Main
+
+Goal: Integrate feature into main branch and clean up.
+
+Merge Process:
+- Switch to main: `git checkout main`
+- Pull latest changes: `git pull origin main` (in case of remote updates)
+- Merge feature branch: `git merge feature/<name> --no-ff -m "Merge feature/<name>: <summary>"`
+- Run final verification: Full test suite on main to ensure merge didn't break anything
+- Push to remote: `git push origin main`
+
+Branch Cleanup:
+- Delete local feature branch: `git branch -d feature/<name>`
+- Delete remote feature branch (if pushed): `git push origin --delete feature/<name>`
+- Confirm clean state: `git branch -a` should show only main (and origin/main)
+
+**Phase 4 outcome:** Feature merged to main, tests passing on main, feature branch deleted locally and remotely, working directory clean.
 
 ---
 
